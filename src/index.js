@@ -177,7 +177,8 @@ class Purgecss {
      */
     removeUnusedFontFaces() {
         for (const { node, name } of this.atRules.fontFace) {
-            const used = this.usedFontFaces.has(name)
+            
+            const used = this.usedFontFaces.has(name.replace('"', "'").split(',')[0])
 
             if (!used) {
                 node.remove()
@@ -334,7 +335,7 @@ class Purgecss {
                 }
                 if (this.options.fontFace) {
                     if (prop === 'font-family') {
-                        this.usedFontFaces.add(value)
+                        this.usedFontFaces.add(value.replace('"', "'").split(',')[0]);
                     }
                 }
             }
